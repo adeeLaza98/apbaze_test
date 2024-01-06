@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AppBaze" Class="AppBazeDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=AppBaze;Integrated Security=True" SettingsObjectName="Apbaze.Properties.Settings" SettingsPropertyName="AppBazeConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=AppBaze;Integrated Security=True" SettingsObjectName="Apbaze.Properties.Settings" SettingsPropertyName="AppBazeConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Bids" Member="Bids">
     <Type Name="Bid">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -20,6 +20,18 @@
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="Category_Job" Member="Jobs" ThisKey="Id" OtherKey="CategoryId" Type="Job" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UsersJobs" Member="UsersJobs">
+    <Type Name="UsersJob">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="JobId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Job_UsersJob" Member="Job" ThisKey="JobId" OtherKey="Id" Type="Job" IsForeignKey="true" />
+      <Association Name="User_UsersJob" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Conversations" Member="Conversations">
@@ -75,22 +87,10 @@
       <Column Name="Username" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
       <Column Name="Password" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
       <Association Name="User_Bid" Member="Bids" ThisKey="Id" OtherKey="FreelancerId" Type="Bid" />
+      <Association Name="User_UsersJob" Member="UsersJobs" ThisKey="Id" OtherKey="UserId" Type="UsersJob" />
       <Association Name="User_Conversation" Member="Conversations" ThisKey="Id" OtherKey="ReceiverId" Type="Conversation" />
       <Association Name="User_Conversation1" Member="Conversations1" ThisKey="Id" OtherKey="SenderId" Type="Conversation" />
-      <Association Name="User_UsersJob" Member="UsersJobs" ThisKey="Id" OtherKey="UserId" Type="UsersJob" />
       <Association Name="Role_User" Member="Role" ThisKey="RoleId" OtherKey="Id" Type="Role" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.UsersJobs" Member="UsersJobs">
-    <Type Name="UsersJob">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="JobId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="IsDeleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Job_UsersJob" Member="Job" ThisKey="JobId" OtherKey="Id" Type="Job" IsForeignKey="true" />
-      <Association Name="User_UsersJob" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

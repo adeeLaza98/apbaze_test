@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Bianca\Documents\GitHub\Ap_baze\ApBaze\Apbaze\obj\Debug\
+C:\__WORK\apbaze_test\apbaze_test\ApBaze\Apbaze\obj\Debug\
 Apbaze
 none
 false
 DEBUG;TRACE
-C:\Users\Bianca\Documents\GitHub\Ap_baze\ApBaze\Apbaze\App.xaml
+C:\__WORK\apbaze_test\apbaze_test\ApBaze\Apbaze\App.xaml
 51524679823
 2-1357984554
 11872838601
-17328336199
+17790974629
 CreateAccount.xaml;CreateAccountSuccess.xaml;CreateUserProfile.xaml;Main.xaml;MainWindow.xaml;
 
-True
+False
 

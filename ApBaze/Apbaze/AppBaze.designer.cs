@@ -51,7 +51,7 @@ namespace Apbaze
     #endregion
 		
 		public AppBazeDataContext() : 
-				base(global::Apbaze.Properties.Settings.Default.AppBazeConnectionString, mappingSource)
+				base(global::Apbaze.Properties.Settings.Default.AppBazeConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -96,6 +96,14 @@ namespace Apbaze
 			}
 		}
 		
+		public System.Data.Linq.Table<UsersJob> UsersJobs
+		{
+			get
+			{
+				return this.GetTable<UsersJob>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Conversation> Conversations
 		{
 			get
@@ -125,14 +133,6 @@ namespace Apbaze
 			get
 			{
 				return this.GetTable<User>();
-			}
-		}
-		
-		public System.Data.Linq.Table<UsersJob> UsersJobs
-		{
-			get
-			{
-				return this.GetTable<UsersJob>();
 			}
 		}
 	}
@@ -584,6 +584,123 @@ namespace Apbaze
 		{
 			this.SendPropertyChanging();
 			entity.Category = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UsersJobs")]
+	public partial class UsersJob
+	{
+		
+		private int _Id;
+		
+		private int _JobId;
+		
+		private int _UserId;
+		
+		private System.DateTime _CreatedAt;
+		
+		private System.Nullable<System.DateTime> _EndDate;
+		
+		private int _IsDeleted;
+		
+		public UsersJob()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobId", DbType="Int NOT NULL")]
+		public int JobId
+		{
+			get
+			{
+				return this._JobId;
+			}
+			set
+			{
+				if ((this._JobId != value))
+				{
+					this._JobId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
+		public int UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this._UserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime NOT NULL")]
+		public System.DateTime CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this._CreatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EndDate
+		{
+			get
+			{
+				return this._EndDate;
+			}
+			set
+			{
+				if ((this._EndDate != value))
+				{
+					this._EndDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDeleted", DbType="Int NOT NULL")]
+		public int IsDeleted
+		{
+			get
+			{
+				return this._IsDeleted;
+			}
+			set
+			{
+				if ((this._IsDeleted != value))
+				{
+					this._IsDeleted = value;
+				}
+			}
 		}
 	}
 	
@@ -1808,123 +1925,6 @@ namespace Apbaze
 		{
 			this.SendPropertyChanging();
 			entity.User1 = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UsersJobs")]
-	public partial class UsersJob
-	{
-		
-		private int _Id;
-		
-		private int _JobId;
-		
-		private int _UserId;
-		
-		private System.DateTime _CreatedAt;
-		
-		private System.Nullable<System.DateTime> _EndDate;
-		
-		private int _IsDeleted;
-		
-		public UsersJob()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this._Id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobId", DbType="Int NOT NULL")]
-		public int JobId
-		{
-			get
-			{
-				return this._JobId;
-			}
-			set
-			{
-				if ((this._JobId != value))
-				{
-					this._JobId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
-		public int UserId
-		{
-			get
-			{
-				return this._UserId;
-			}
-			set
-			{
-				if ((this._UserId != value))
-				{
-					this._UserId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime NOT NULL")]
-		public System.DateTime CreatedAt
-		{
-			get
-			{
-				return this._CreatedAt;
-			}
-			set
-			{
-				if ((this._CreatedAt != value))
-				{
-					this._CreatedAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> EndDate
-		{
-			get
-			{
-				return this._EndDate;
-			}
-			set
-			{
-				if ((this._EndDate != value))
-				{
-					this._EndDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDeleted", DbType="Int NOT NULL")]
-		public int IsDeleted
-		{
-			get
-			{
-				return this._IsDeleted;
-			}
-			set
-			{
-				if ((this._IsDeleted != value))
-				{
-					this._IsDeleted = value;
-				}
-			}
 		}
 	}
 }

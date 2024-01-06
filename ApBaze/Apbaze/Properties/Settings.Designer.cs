@@ -32,5 +32,15 @@ namespace Apbaze.Properties {
                 return ((string)(this["AppBazeConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;Initial Catalog=AppBaze;Integrated Security=True")]
+        public string AppBazeConnectionString1 {
+            get {
+                return ((string)(this["AppBazeConnectionString1"]));
+            }
+        }
     }
 }
