@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Login" Height="476" Width="834"
+        Title="Login" Height="900" Width="1200"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{x:Null}"
         AllowsTransparency="True"
@@ -14,24 +14,302 @@
         <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="850"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="900"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
-                <Image Source="/resources/logo.png" Height="81" Width="158" RenderTransformOrigin="0.485,-0.158" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,9,0,0"/>
-                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25" RenderTransformOrigin="17.549,0.683" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" Margin="0 10 120 0">
+
+                <!--#region Header-->
+
+                <!-- Set the background of the first row to grey -->
+                <Border Grid.Row="0" Grid.ColumnSpan="3" Background="#c7c3c3">
+                    <!-- Content of the first row goes here -->
+                </Border>
+
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Margin="0 10 0 0" Grid.Column="1" FontWeight="Bold" Foreground="#14a800">
+                        Find Work
+                    </Label>
+
+                    <Label Margin="0 10 0 0" Grid.Column="2">
+                        My Jobs
+                    </Label>
+
+                    <Label Margin="-15 10 0 0" Grid.Column="3">
+                        Messages
+                    </Label>
+
+                </Grid>
+
+                <Label Margin="0 10 0 0" RenderTransformOrigin="17.549,0.683" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="0" Grid.Column="1">Welcome, calin julan</Label>
+
+                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25" RenderTransformOrigin="17.549,0.683" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="0" Margin="0 10 70 0" Grid.Column="2">
+                    <!--Margin="950,10,0,0"-->
                     <StackPanel Margin="16 10 0 6" Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center" Text="Dark Mode"/>
-                        <ToggleButton Cursor="Hand" ToolTip="Enable Dark Mode" Margin="12 0 8 0" x:Name="themeToggle" IsChecked="{Binding IsDarkTheme}" Click="toggleTheme"/>
-                        <Button ToolTip="Having Trouble Logging In?" Margin="0 8 0 0" Content="Help Me"/>
+                        <ToggleButton Cursor="Hand" ToolTip="Enable Dark Mode" Margin="8 0 0 0" x:Name="themeToggle" IsChecked="{Binding IsDarkTheme}" Click="toggleTheme"/>
+                        <Button ToolTip="Having Trouble Logging In?" Content="Help Me"/>
                         <Button x:Name="btn_exit" ToolTip="Close Application" Content="Exit Application" Click="exitApp"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
-                <Button Content="Find&#xD;&#xA;Work" Width="115" Height="77" Margin="163,9,249,40" FontSize="18"
+
+                <!--#endregion-->
+
+                <!--#region Content-->
+
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="600"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <!--<RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="16*"/>-->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <materialDesign:PackIcon Grid.Column="1" Grid.Row="1" Kind="Magnify" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black"/>
+
+                    <TextBox Grid.Column="2" Grid.ColumnSpan="11" Grid.Row="1" Width="250" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="SearchTermTextBox" Margin="5" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Column="2" Grid.ColumnSpan="11" Grid.Row="1" IsHitTestVisible="False" Text="Search for jobs" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchTermTextBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <Label Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="5" FontWeight="Bold" FontSize="20">
+                        Jobs recommended for you
+                    </Label>
+
+                    <Separator Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="11" Margin="0 -40 0 0" />
+
+                    <Label Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="11" Margin="0 -30 0 0">
+                        Browse jobs that match your experience to a client's hiring preferences. Ordered by most relevant.
+                    </Label>
+
+                    <Grid Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="11" Margin="0 0 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.Resources>
+                            <!-- Define a style for the rows -->
+                            <Style TargetType="Border" x:Key="RowStyle">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Style.Triggers>
+                                    <!-- Change background on mouse over -->
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="LightGray"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Resources>
+
+                        <!-- Dynamically load rows -->
+                        <ItemsControl ItemsSource="{Binding Jobs}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Height="150" Style="{StaticResource RowStyle}" BorderBrush="Black" BorderThickness="0,0,0,1">
+                                        <Grid>
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Content="{Binding PostDate}" Grid.Row="0" HorizontalAlignment="Left"/>
+
+                                            <Label Content="{Binding Title}" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" FontWeight="Bold" FontSize="16"/>
+
+                                            <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="HeartOutline" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black" Margin="0 0 20 0"/>
+
+                                            <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="DislikeOutline" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black" Margin="0 0 50 0"/>
+
+                                            <Label Content="{Binding Details}" FontWeight="SemiBold" Grid.Row="2" HorizontalAlignment="Left" Margin="0 -5 0 0"/>
+
+                                            <TextBlock TextWrapping="WrapWithOverflow" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="5 10 0 0" Text="{Binding Description}">
+                                            </TextBlock>
+
+                                        </Grid>
+
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <!--<Border Grid.Row="1" Style="{StaticResource RowStyle}" BorderBrush="Black" BorderThickness="0,0,0,1">
+                            <Grid>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Content="Posted 1 hour ago" Grid.Row="0" HorizontalAlignment="Left"/>
+
+                                <Label Content="Make improvements to JS/Vb.net web site" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" FontWeight="Bold" FontSize="16"/>
+
+                                <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="HeartOutline" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black" Margin="0 0 20 0"/>
+
+                                <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="DislikeOutline" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black" Margin="0 0 50 0"/>
+
+                                <Label Content="Hourly: $10-$25 - Intermediate - Est. Time: 3 months" FontWeight="SemiBold" Grid.Row="2" HorizontalAlignment="Left" Margin="0 -5 0 0"/>
+
+                                <TextBlock TextWrapping="WrapWithOverflow" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="5 10 0 0">Hello, I have some requirements for a website project that we need to build a prototype for, the details are attached. The prototype has to contain all the screen mentioned in the document as well as some inspiration. The prototype has to be interactive.
+                                </TextBlock>
+
+                            </Grid>
+
+                        </Border>
+
+                        <Border Grid.Row="2" Style="{StaticResource RowStyle}" BorderBrush="Black" BorderThickness="0,0,0,1">
+                            <Grid>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Content="Posted 1 hour ago" Grid.Row="0" HorizontalAlignment="Left"/>
+
+                                <Label Content="Create a cronjob in .net c#" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" FontWeight="Bold" FontSize="16"/>
+
+                                <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="HeartOutline" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black" Margin="0 0 20 0"/>
+
+                                <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="DislikeOutline" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black" Margin="0 0 50 0"/>
+
+                                <Label Content="Fixed price - Advanced - Est. budget: $50" FontWeight="SemiBold" Grid.Row="2" HorizontalAlignment="Left" Margin="0 -5 0 0"/>
+
+                                <TextBlock TextWrapping="WrapWithOverflow" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="5 10 0 0">Hello Developer, I want to create one cronjob which get data from API and store it in database. I will provide more detail if you can create cronjob. Its very small task, once it is completed we have other jobs to work. Thanks and Regards, Dev
+                                </TextBlock>
+
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Row="3" Style="{StaticResource RowStyle}" BorderBrush="Black" BorderThickness="0,0,0,1">
+                            <Grid>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Content="Posted 1 hour ago" Grid.Row="0" HorizontalAlignment="Left"/>
+
+                                <Label Content="C# Developer Needed" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" FontWeight="Bold" FontSize="16"/>
+
+                                <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="HeartOutline" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black" Margin="0 0 20 0"/>
+
+                                <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="DislikeOutline" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black" Margin="0 0 50 0"/>
+
+                                <Label Content="Hourly: $60-$75 - Beginner - Est. Time: 1 month" FontWeight="SemiBold" Grid.Row="2" HorizontalAlignment="Left" Margin="0 -5 0 0"/>
+
+                                <TextBlock TextWrapping="WrapWithOverflow" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="5 10 0 0">Hello, I have some requirements for a website project that we need to build a prototype for, the details are attached. The prototype has to contain all the screen mentioned in the document as well as some inspiration. The prototype has to be interactive.
+                                </TextBlock>
+
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Row="4" Style="{StaticResource RowStyle}" BorderBrush="Black" BorderThickness="0,0,0,1">
+                            <Grid>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Content="Posted 1 hour ago" Grid.Row="0" HorizontalAlignment="Left"/>
+
+                                <Label Content="IIS ASP.NET Application Crash Debugging" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" FontWeight="Bold" FontSize="16"/>
+
+                                <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="HeartOutline" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black" Margin="0 0 20 0"/>
+
+                                <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="DislikeOutline" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black" Margin="0 0 50 0"/>
+
+                                <Label Content="Fixed price - Advanced - Est. budget: $2,500" FontWeight="SemiBold" Grid.Row="2" HorizontalAlignment="Left" Margin="0 -5 0 0"/>
+
+                                <TextBlock TextWrapping="WrapWithOverflow" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="5 10 0 0">Hello, I have some requirements for a website project that we need to build a prototype for, the details are attached. The prototype has to contain all the screen mentioned in the document as well as some inspiration. The prototype has to be interactive.
+                                </TextBlock>
+
+                            </Grid>
+                        </Border>-->
+
+                    </Grid>
+
+                </Grid>
+
+                <!--#endregion-->
+
+
+
+                <!--<Label Height="25" RenderTransformOrigin="17.549,0.683" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" Margin="0,10,-252,0">test</Label>-->
+                <!--<Button Content="Find&#xD;&#xA;Work" Width="115" Height="77" Margin="163,9,249,40" FontSize="18"
                     Style="{StaticResource MaterialDesignRaisedSecondaryLightButton}"  RenderTransformOrigin="0.559,0.436" Click="Button_Click" />
                 <Button Content="My Jobs" Width="115" Height="77" Margin="283,10,129,41" FontSize="18"
                     Style="{StaticResource MaterialDesignRaisedSecondaryLightButton}"  RenderTransformOrigin="0.539,0.345" />
@@ -40,7 +318,9 @@
                 <Button Content="Messages" Width="115" Height="77" Margin="523,10,250,41" FontSize="18"
                     Style="{StaticResource MaterialDesignRaisedSecondaryLightButton}"  RenderTransformOrigin="0.539,0.345" Grid.ColumnSpan="2" />
                 <Button Content="Profile&#xD;&#xA; Info" Width="100" Height="110" Margin="131,83,130,-63" FontSize="18"
-                    Style="{StaticResource MaterialDesignRaisedSecondaryLightButton}"  RenderTransformOrigin="0.539,0.345" Grid.Column="1" Grid.RowSpan="2" />
+                    Style="{StaticResource MaterialDesignRaisedSecondaryLightButton}"  RenderTransformOrigin="0.539,0.345" Grid.Column="1" Grid.RowSpan="2" />-->
+                <!--<Image Source="/resources/logo.png" Height="81" Width="158" RenderTransformOrigin="0.485,-0.158" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,9,0,0"/>-->
+
             </Grid>
         </materialDesign:DialogHost>
     </materialDesign:Card>
