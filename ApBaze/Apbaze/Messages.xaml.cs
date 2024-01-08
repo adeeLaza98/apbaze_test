@@ -1,6 +1,6 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,78 +11,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Apbaze.ViewModels;
-using MaterialDesignThemes.Wpf;
-using Notification.Wpf;
 
 namespace Apbaze
 {
     /// <summary>
-    /// Interaction logic for Main.xaml
+    /// Interaction logic for Messages.xaml
     /// </summary>
-    public partial class Main : Window
+    public partial class Messages : Window
     {
         public bool IsDarkTheme { get; set; }
         private readonly PaletteHelper paletteHelper = new PaletteHelper();
         private static AppBazeDataContext _context = new AppBazeDataContext();
-        public ObservableCollection<JobViewModel> Jobs { get; set; }
-        private string _searchText;
-        public string SearchText
-        {
-            get { return _searchText; }
-            set
-            {
-                _searchText = value;
-                ApplyFilter();
-            }
-        }
 
-        public Main()
+        public Messages()
         {
             InitializeComponent();
-            LoadJobs();
-
-            DataContext = this;
-        }
-
-        private void LoadJobs()
-        {
-            var jobs = _context.Jobs
-                .Where(j => !j.IsDeleted)
-                .Select(j => new JobViewModel(j))
-                .ToList();
-
-            Jobs = new ObservableCollection<JobViewModel>(jobs);
-        }
-
-        private void ApplyFilter()
-        {
-            if (string.IsNullOrEmpty(SearchText))
-            {
-                Jobs.Clear();
-
-                var jobs = _context.Jobs
-                    .Where(j => !j.IsDeleted)
-                    .Select(j => new JobViewModel(j))
-                    .ToList();
-
-                foreach (var item in jobs)
-                    Jobs.Add(item);
-            }
-            else
-            {
-                Jobs.Clear();
-
-                var jobs = _context.Jobs
-                    .Where(j => !j.IsDeleted && (j.Title.ToLower().Contains(SearchText) || j.Description.ToLower().Contains(SearchText)))
-                    .Select(j => new JobViewModel(j))
-                    .ToList();
-
-                foreach (var item in jobs)
-                    Jobs.Add(item);
-            }
         }
 
         private void toggleTheme(object sender, RoutedEventArgs e)
@@ -120,20 +64,6 @@ namespace Apbaze
             }
         }
 
-        private void PackIcon_MouseDown_1(object sender, MouseButtonEventArgs e)
-        {
-            var notificationManager = new NotificationManager();
-
-            var content = new NotificationContent
-            {
-                Title = "Success",
-                Message = "Successfully added job to favourites",
-                Type = NotificationType.Success,
-            };
-
-            notificationManager.Show(content, "WindowArea");
-        }
-
         private void FindWorkRedirect(object sender, MouseButtonEventArgs e)
         {
             findWork.FontWeight = FontWeights.Bold;
@@ -143,6 +73,10 @@ namespace Apbaze
             myJobs.Foreground = Brushes.Black;
             messages.FontWeight = FontWeights.Normal;
             messages.Foreground = Brushes.Black;
+
+            var findWorkView = new Main();
+            findWorkView.Show();
+            Close();
         }
 
         private void MyJobsRedirect(object sender, MouseButtonEventArgs e)
@@ -169,6 +103,21 @@ namespace Apbaze
             var messagesView = new Messages();
             messagesView.Show();
             Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            message.Text = string.Empty;
+            message.Focus();
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                message.Text = string.Empty;
+                message.Focus();
+            }
         }
     }
 }

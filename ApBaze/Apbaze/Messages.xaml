@@ -1,0 +1,366 @@
+﻿<Window x:Class="Apbaze.Messages"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:notifications="clr-namespace:Notification.Wpf.Controls;assembly=Notification.Wpf"
+        Title="Messages" Height="900" Width="1200"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{x:Null}"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
+
+    <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}" Margin="25" materialDesign:ShadowAssist.ShadowDepth="Depth4">
+        <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="850"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="900"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <!--#region Header-->
+
+                <!-- Set the background of the first row to grey -->
+                <Border Grid.Row="0" Grid.ColumnSpan="3" Background="#c7c3c3">
+                    <!-- Content of the first row goes here -->
+                </Border>
+
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="1" MouseDown="FindWorkRedirect">
+                        <Label Name="findWork" Margin="0 6 0 0" Foreground="Black">Find Work</Label>
+                    </Label>
+
+                    <Label Grid.Column="2" MouseDown="MyJobsRedirect">
+                        <Label Name="myJobs" Margin="0 6 0 0" Foreground="Black">My Jobs</Label>
+                    </Label>
+
+                    <Label Grid.Column="3" MouseDown="MessagesRedirect">
+                        <Label Name="messages" Margin="-10 6 0 0" FontWeight="Bold" Foreground="#14a800">Messages</Label>
+                    </Label>
+
+                </Grid>
+
+                <Label Margin="0 10 50 0" RenderTransformOrigin="17.549,0.683" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="0" Grid.Column="1">Welcome, calin julan</Label>
+
+                <Label HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" Grid.Row="0" Margin="0 2 0 0" Height="40" Width="40" MouseDown="PackIcon_MouseDown">
+                    <materialDesign:PackIcon Kind="Logout" ToolTip="Logout" Foreground="Black" Margin="8 9 0 0"/>
+                </Label>
+
+                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25" RenderTransformOrigin="17.549,0.683" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="0" Margin="0 10 70 0" Grid.Column="2">
+                    <!--Margin="950,10,0,0"-->
+                    <StackPanel Margin="16 10 0 6" Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center" Text="Dark Mode"/>
+                        <ToggleButton Cursor="Hand" ToolTip="Enable Dark Mode" Margin="8 0 0 0" x:Name="themeToggle" IsChecked="{Binding IsDarkTheme}" Click="toggleTheme"/>
+                        <Button ToolTip="Having Trouble Logging In?" Content="Help Me"/>
+                        <Button x:Name="btn_exit" ToolTip="Close Application" Content="Exit Application" Click="exitApp"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+
+                <!--#endregion-->
+
+                <notifications:NotificationArea x:Name="WindowArea" Position="BottomRight"  MaxItems="3" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 0 0 100"/>
+
+                <!--#region Content-->
+
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="400"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="36"/>
+                        <!--<RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="16*"/>-->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="5" FontWeight="Bold" FontSize="20">
+                        Messages
+                    </Label>
+
+                    <Separator Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="11" Margin="0 -40 0 0" />
+
+                    <Label Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="11" Margin="0 -30 0 0">
+                        Chat with your clients and freelancers
+                    </Label>
+
+                    <Grid Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Margin="0 0 0 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.Resources>
+                            <Style TargetType="Border" x:Key="RowStyle">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="LightGray"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Resources>
+
+                        <Border Grid.Row="0" Style="{StaticResource RowStyle}" BorderBrush="Black" BorderThickness="0,0,0,1">
+                            <Grid>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Kind="User" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Black"/>
+                                
+                                <Label Content="Julan Calin" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="4" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
+
+                            </Grid>
+
+                        </Border>
+
+                        <Border Grid.Row="1" Style="{StaticResource RowStyle}" BorderBrush="Black" BorderThickness="0,0,0,1">
+                            <Grid>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Kind="User" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Black"/>
+
+                                <Label Content="Lazarescu Cr..." Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="4" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
+
+                            </Grid>
+
+                        </Border>
+
+                        <Border Grid.Row="2" Style="{StaticResource RowStyle}" BorderBrush="Black" BorderThickness="0,0,0,1">
+                            <Grid>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Kind="User" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Black"/>
+
+                                <Label Content="Toma Marcu" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="4" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
+
+                            </Grid>
+
+                        </Border>
+
+                    </Grid>
+
+                    <Border Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="11" Margin="0 0 0 0" CornerRadius="7" Background="#f5f3f0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition Height="50"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Background="LightGray" Content="   buna   ">
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Label">
+                                                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                            <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Background="LightGray" Content="   ce mai faci ?   ">
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Label">
+                                                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                            <Label Grid.Row="3" Grid.Column="2" HorizontalAlignment="Right" Background="LightGreen" Content="   buna   ">
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Label">
+                                                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                            <Label Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right" Background="LightGreen" Content="   sunt la scoala   ">
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Label">
+                                                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                            <Label Grid.Row="5" Grid.Column="2" HorizontalAlignment="Right" Background="LightGreen" Content="   tu ce faci ?   ">
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Label">
+                                                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                            <Label Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Background="LightGray" Content="   lucrez la proiectul de la ap baze   ">
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Label">
+                                                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+
+                        </Grid>
+                    </Border>
+                    
+                    <Grid Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="11" Margin="5 0 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0" Grid.ColumnSpan="11" Grid.Row="1" Width="450" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="message" Margin="5" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" PreviewKeyDown="TextBox_PreviewKeyDown"/>
+
+                        <TextBlock Grid.Column="2" Grid.ColumnSpan="11" Grid.Row="1" IsHitTestVisible="False" Text="Send a message..." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=message}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                        <Button Margin="470 -12 0 0" Width="100" Click="Button_Click">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <materialDesign:PackIcon Kind="Send" Margin="0 0 5 0"/>
+                                    <TextBlock Text="Send" Margin="0 0 5 0"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+
+                </Grid>
+
+                <!--#endregion-->
+
+            </Grid>
+        </materialDesign:DialogHost>
+    </materialDesign:Card>
+</Window>
