@@ -144,5 +144,38 @@ namespace Apbaze
 
             notificationManager.Show(content, "WindowArea");
         }
+
+        private void FindWorkRedirect(object sender, MouseButtonEventArgs e)
+        {
+            findWork.FontWeight = FontWeights.Bold;
+            findWork.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#14a800"));
+
+            myJobs.FontWeight = FontWeights.Normal;
+            myJobs.Foreground = Brushes.Black;
+            messages.FontWeight = FontWeights.Normal;
+            messages.Foreground = Brushes.Black;
+        }
+
+        private void MyJobsRedirect(object sender, MouseButtonEventArgs e)
+        {
+            myJobs.FontWeight = FontWeights.Bold;
+            myJobs.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#14a800"));
+
+            findWork.FontWeight = FontWeights.Normal;
+            findWork.Foreground = Brushes.Black;
+            messages.FontWeight = FontWeights.Normal;
+            messages.Foreground = Brushes.Black;
+        }
+
+        private void MessagesRedirect(object sender, MouseButtonEventArgs e)
+        {
+            messages.FontWeight = FontWeights.Bold;
+            messages.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#14a800"));
+
+            myJobs.FontWeight = FontWeights.Normal;
+            myJobs.Foreground = Brushes.Black;
+            findWork.FontWeight = FontWeights.Normal;
+            findWork.Foreground = Brushes.Black;
+        }
     }
 }
