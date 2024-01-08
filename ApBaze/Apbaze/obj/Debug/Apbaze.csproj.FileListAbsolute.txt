@@ -107,3 +107,8 @@ C:\__WORK\apbaze_test\apbaze_test\ApBaze\Apbaze\obj\Debug\Apbaze.csproj.CoreComp
 C:\__WORK\apbaze_test\apbaze_test\ApBaze\Apbaze\obj\Debug\Apbaze.csproj.CopyComplete
 C:\__WORK\apbaze_test\apbaze_test\ApBaze\Apbaze\obj\Debug\Apbaze.exe
 C:\__WORK\apbaze_test\apbaze_test\ApBaze\Apbaze\obj\Debug\Apbaze.pdb
+C:\__WORK\apbaze_test\apbaze_test\ApBaze\Apbaze\bin\Debug\Notification.Wpf.dll
+C:\__WORK\apbaze_test\apbaze_test\ApBaze\Apbaze\bin\Debug\System.ValueTuple.dll
+C:\__WORK\apbaze_test\apbaze_test\ApBaze\Apbaze\bin\Debug\Notification.Wpf.pdb
+C:\__WORK\apbaze_test\apbaze_test\ApBaze\Apbaze\bin\Debug\Notification.Wpf.xml
+C:\__WORK\apbaze_test\apbaze_test\ApBaze\Apbaze\bin\Debug\System.ValueTuple.xml

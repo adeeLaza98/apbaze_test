@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Apbaze.ViewModels;
 using MaterialDesignThemes.Wpf;
+using Notification.Wpf;
 
 namespace Apbaze
 {
@@ -104,6 +105,44 @@ namespace Apbaze
         private void exitApp(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void PackIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //var notificationManager = new NotificationManager();
+
+            //var content = new NotificationContent
+            //{
+            //    Title = "Logout pressed",
+            //    Message = "This is a notification message.",
+            //    Type = NotificationType.Information,
+            //};
+
+            //notificationManager.Show(content, "WindowArea");
+
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to exit?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+
+                Close();
+            }
+        }
+
+        private void PackIcon_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            var notificationManager = new NotificationManager();
+
+            var content = new NotificationContent
+            {
+                Title = "Success",
+                Message = "Successfully added job to favourites",
+                Type = NotificationType.Success,
+            };
+
+            notificationManager.Show(content, "WindowArea");
         }
     }
 }
