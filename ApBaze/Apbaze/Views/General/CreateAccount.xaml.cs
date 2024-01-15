@@ -177,11 +177,8 @@ namespace Apbaze
 
         private void GoToMainWindow_Click(object sender, RoutedEventArgs e)
         {
-            //MainWindow mainWindow = new MainWindow();
-            //mainWindow.Show();
-            //Close();
-            Main main = new Main();
-            main.Show();
+            MainWindow mainwindow = new MainWindow();
+            mainwindow.Show();
             Close();
         }
 
@@ -189,6 +186,50 @@ namespace Apbaze
         {
             var roles = _context.Roles.ToList();
             var timestamp = DateTime.Now;
+
+            if (Utils.IsValidPhoneNumber(txtPhone.Text) == false)
+            {
+                MessageBoxResult error = MessageBox.Show("Invalid phone number!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                txtPhone.Focus();
+
+                return;
+            }
+
+            if (Utils.IsValidEmail(txtEmail.Text) == false)
+            {
+                MessageBoxResult error = MessageBox.Show("Invalid email!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                txtEmail.Focus();
+
+                return;
+            }
+
+            var users = _context.Users
+                .Where(u => u.Username == txtUsername.Text)
+                .ToList();
+
+            if(users.Count > 0) 
+            {
+                MessageBoxResult error = MessageBox.Show("There is already an user with this username!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                txtEmail.Focus();
+
+                return;
+            }
+
+            var usersEmails = _context.Users
+               .Where(u => u.Email == txtEmail.Text)
+               .ToList();
+
+            if (usersEmails.Count > 0)
+            {
+                MessageBoxResult error = MessageBox.Show("There is already an user with this email!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                txtEmail.Focus();
+
+                return;
+            }
 
             _context.Users.InsertOnSubmit(new User
             {

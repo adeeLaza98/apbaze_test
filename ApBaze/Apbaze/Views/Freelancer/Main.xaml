@@ -181,15 +181,15 @@
 
                                                 <Label Content="{Binding Title}" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" FontWeight="Bold" FontSize="16"/>
 
-                                                <Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="50" Width="50" Margin="0 0 -10 0" MouseDown="PackIcon_MouseDown_1">
+                                                <!--<Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="50" Width="50" Margin="0 0 -10 0" MouseDown="PackIcon_MouseDown_1">
                                                     <materialDesign:PackIcon x:Name="Favourite" Kind="HeartOutline" Foreground="Black" Margin="10 13 0 0"/>
-                                                </Label>
+                                                </Label>-->
 
                                                 <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="CheckBold" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Green" Margin="0 0 100 0" Visibility="{Binding AlreadyProposed, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                                                 <Label Content="Proposal submitted" FontWeight="SemiBold" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 120 0" Foreground="Green" Visibility="{Binding AlreadyProposed, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
-                                                <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="DislikeOutline" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black" Margin="0 0 50 0"/>
+                                                <!--<materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="DislikeOutline" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black" Margin="0 0 50 0"/>-->
 
                                                 <Label Content="{Binding Details}" FontWeight="SemiBold" Grid.Row="2" HorizontalAlignment="Left" Margin="0 -5 0 0"/>
 

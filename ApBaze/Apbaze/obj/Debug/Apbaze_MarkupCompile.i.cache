@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\__WORK\apbaze_test\apbaze_test\ApBaze\Apbaze\obj\Debug\
+C:\apbaze_test\ApBaze\Apbaze\obj\Debug\
 Apbaze
 none
 false
 DEBUG;TRACE
-C:\__WORK\apbaze_test\apbaze_test\ApBaze\Apbaze\App.xaml
+C:\apbaze_test\ApBaze\Apbaze\App.xaml
 13-1343078592
 2-1357984554
 26-400083848
-19-1768435530
+191982843946
 Views\Client\ClientJob.xaml;Views\General\CreateAccount.xaml;Views\General\CreateAccountSuccess.xaml;Views\Client\CreateJob.xaml;Views\Client\DeliverableReview.xaml;Views\Freelancer\JobDetails.xaml;Views\Freelancer\Main.xaml;Views\Client\MainClient.xaml;MainWindow.xaml;Views\General\Messages.xaml;Views\Freelancer\MyJobs.xaml;Views\Freelancer\SubmitDeliverable.xaml;Views\General\Wallet.xaml;
 
-False
+True
 
