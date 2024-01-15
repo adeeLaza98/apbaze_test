@@ -36,22 +36,31 @@ namespace Apbaze
     partial void InsertCategory(Category instance);
     partial void UpdateCategory(Category instance);
     partial void DeleteCategory(Category instance);
+    partial void InsertChatRoom(ChatRoom instance);
+    partial void UpdateChatRoom(ChatRoom instance);
+    partial void DeleteChatRoom(ChatRoom instance);
     partial void InsertConversation(Conversation instance);
     partial void UpdateConversation(Conversation instance);
     partial void DeleteConversation(Conversation instance);
+    partial void InsertDeliverable(Deliverable instance);
+    partial void UpdateDeliverable(Deliverable instance);
+    partial void DeleteDeliverable(Deliverable instance);
     partial void InsertJob(Job instance);
     partial void UpdateJob(Job instance);
     partial void DeleteJob(Job instance);
     partial void InsertRole(Role instance);
     partial void UpdateRole(Role instance);
     partial void DeleteRole(Role instance);
+    partial void InsertTransaction(Transaction instance);
+    partial void UpdateTransaction(Transaction instance);
+    partial void DeleteTransaction(Transaction instance);
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
     #endregion
 		
 		public AppBazeDataContext() : 
-				base(global::Apbaze.Properties.Settings.Default.AppBazeConnectionString1, mappingSource)
+				base(global::Apbaze.Properties.Settings.Default.AppBazeConnectionString3, mappingSource)
 		{
 			OnCreated();
 		}
@@ -88,14 +97,6 @@ namespace Apbaze
 			}
 		}
 		
-		public System.Data.Linq.Table<Category> Categories
-		{
-			get
-			{
-				return this.GetTable<Category>();
-			}
-		}
-		
 		public System.Data.Linq.Table<UsersJob> UsersJobs
 		{
 			get
@@ -104,11 +105,35 @@ namespace Apbaze
 			}
 		}
 		
+		public System.Data.Linq.Table<Category> Categories
+		{
+			get
+			{
+				return this.GetTable<Category>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ChatRoom> ChatRooms
+		{
+			get
+			{
+				return this.GetTable<ChatRoom>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Conversation> Conversations
 		{
 			get
 			{
 				return this.GetTable<Conversation>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Deliverable> Deliverables
+		{
+			get
+			{
+				return this.GetTable<Deliverable>();
 			}
 		}
 		
@@ -125,6 +150,14 @@ namespace Apbaze
 			get
 			{
 				return this.GetTable<Role>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Transaction> Transactions
+		{
+			get
+			{
+				return this.GetTable<Transaction>();
 			}
 		}
 		
@@ -157,6 +190,8 @@ namespace Apbaze
 		
 		private bool _IsDeleted;
 		
+		private string _Message;
+		
 		private EntityRef<Job> _Job;
 		
 		private EntityRef<User> _User;
@@ -179,6 +214,8 @@ namespace Apbaze
     partial void OnCreatedAtChanged();
     partial void OnIsDeletedChanging(bool value);
     partial void OnIsDeletedChanged();
+    partial void OnMessageChanging(string value);
+    partial void OnMessageChanged();
     #endregion
 		
 		public Bid()
@@ -336,6 +373,26 @@ namespace Apbaze
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="NVarChar(3000) NOT NULL", CanBeNull=false)]
+		public string Message
+		{
+			get
+			{
+				return this._Message;
+			}
+			set
+			{
+				if ((this._Message != value))
+				{
+					this.OnMessageChanging(value);
+					this.SendPropertyChanging();
+					this._Message = value;
+					this.SendPropertyChanged("Message");
+					this.OnMessageChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Job_Bid", Storage="_Job", ThisKey="JobId", OtherKey="Id", IsForeignKey=true)]
 		public Job Job
 		{
@@ -421,6 +478,123 @@ namespace Apbaze
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UsersJobs")]
+	public partial class UsersJob
+	{
+		
+		private int _Id;
+		
+		private int _JobId;
+		
+		private int _UserId;
+		
+		private System.DateTime _CreatedAt;
+		
+		private System.Nullable<System.DateTime> _EndDate;
+		
+		private int _IsDeleted;
+		
+		public UsersJob()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobId", DbType="Int NOT NULL")]
+		public int JobId
+		{
+			get
+			{
+				return this._JobId;
+			}
+			set
+			{
+				if ((this._JobId != value))
+				{
+					this._JobId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
+		public int UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this._UserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime NOT NULL")]
+		public System.DateTime CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this._CreatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EndDate
+		{
+			get
+			{
+				return this._EndDate;
+			}
+			set
+			{
+				if ((this._EndDate != value))
+				{
+					this._EndDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDeleted", DbType="Int NOT NULL")]
+		public int IsDeleted
+		{
+			get
+			{
+				return this._IsDeleted;
+			}
+			set
+			{
+				if ((this._IsDeleted != value))
+				{
+					this._IsDeleted = value;
+				}
 			}
 		}
 	}
@@ -587,27 +761,47 @@ namespace Apbaze
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UsersJobs")]
-	public partial class UsersJob
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ChatRooms")]
+	public partial class ChatRoom : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _Id;
 		
-		private int _JobId;
+		private string _Title;
 		
-		private int _UserId;
+		private System.Nullable<System.DateTime> _CreatedAt;
 		
-		private System.DateTime _CreatedAt;
+		private System.Nullable<int> _ClientId;
 		
-		private System.Nullable<System.DateTime> _EndDate;
+		private System.Nullable<int> _FreelancerId;
 		
-		private int _IsDeleted;
+		private EntitySet<Conversation> _Conversations;
 		
-		public UsersJob()
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedAtChanged();
+    partial void OnClientIdChanging(System.Nullable<int> value);
+    partial void OnClientIdChanged();
+    partial void OnFreelancerIdChanging(System.Nullable<int> value);
+    partial void OnFreelancerIdChanged();
+    #endregion
+		
+		public ChatRoom()
 		{
+			this._Conversations = new EntitySet<Conversation>(new Action<Conversation>(this.attach_Conversations), new Action<Conversation>(this.detach_Conversations));
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int Id
 		{
 			get
@@ -618,45 +812,37 @@ namespace Apbaze
 			{
 				if ((this._Id != value))
 				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
 					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobId", DbType="Int NOT NULL")]
-		public int JobId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
+		public string Title
 		{
 			get
 			{
-				return this._JobId;
+				return this._Title;
 			}
 			set
 			{
-				if ((this._JobId != value))
+				if ((this._Title != value))
 				{
-					this._JobId = value;
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
-		public int UserId
-		{
-			get
-			{
-				return this._UserId;
-			}
-			set
-			{
-				if ((this._UserId != value))
-				{
-					this._UserId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime NOT NULL")]
-		public System.DateTime CreatedAt
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedAt
 		{
 			get
 			{
@@ -666,41 +852,98 @@ namespace Apbaze
 			{
 				if ((this._CreatedAt != value))
 				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
 					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> EndDate
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClientId", DbType="Int")]
+		public System.Nullable<int> ClientId
 		{
 			get
 			{
-				return this._EndDate;
+				return this._ClientId;
 			}
 			set
 			{
-				if ((this._EndDate != value))
+				if ((this._ClientId != value))
 				{
-					this._EndDate = value;
+					this.OnClientIdChanging(value);
+					this.SendPropertyChanging();
+					this._ClientId = value;
+					this.SendPropertyChanged("ClientId");
+					this.OnClientIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDeleted", DbType="Int NOT NULL")]
-		public int IsDeleted
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FreelancerId", DbType="Int")]
+		public System.Nullable<int> FreelancerId
 		{
 			get
 			{
-				return this._IsDeleted;
+				return this._FreelancerId;
 			}
 			set
 			{
-				if ((this._IsDeleted != value))
+				if ((this._FreelancerId != value))
 				{
-					this._IsDeleted = value;
+					this.OnFreelancerIdChanging(value);
+					this.SendPropertyChanging();
+					this._FreelancerId = value;
+					this.SendPropertyChanged("FreelancerId");
+					this.OnFreelancerIdChanged();
 				}
 			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ChatRoom_Conversation", Storage="_Conversations", ThisKey="Id", OtherKey="ChatRoomId")]
+		public EntitySet<Conversation> Conversations
+		{
+			get
+			{
+				return this._Conversations;
+			}
+			set
+			{
+				this._Conversations.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Conversations(Conversation entity)
+		{
+			this.SendPropertyChanging();
+			entity.ChatRoom = this;
+		}
+		
+		private void detach_Conversations(Conversation entity)
+		{
+			this.SendPropertyChanging();
+			entity.ChatRoom = null;
 		}
 	}
 	
@@ -724,6 +967,10 @@ namespace Apbaze
 		
 		private int _ReceiverId;
 		
+		private System.Nullable<int> _ChatRoomId;
+		
+		private EntityRef<ChatRoom> _ChatRoom;
+		
 		private EntityRef<User> _User;
 		
 		private EntityRef<User> _User1;
@@ -746,10 +993,13 @@ namespace Apbaze
     partial void OnSenderIdChanged();
     partial void OnReceiverIdChanging(int value);
     partial void OnReceiverIdChanged();
+    partial void OnChatRoomIdChanging(System.Nullable<int> value);
+    partial void OnChatRoomIdChanged();
     #endregion
 		
 		public Conversation()
 		{
+			this._ChatRoom = default(EntityRef<ChatRoom>);
 			this._User = default(EntityRef<User>);
 			this._User1 = default(EntityRef<User>);
 			OnCreated();
@@ -903,6 +1153,64 @@ namespace Apbaze
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ChatRoomId", DbType="Int")]
+		public System.Nullable<int> ChatRoomId
+		{
+			get
+			{
+				return this._ChatRoomId;
+			}
+			set
+			{
+				if ((this._ChatRoomId != value))
+				{
+					if (this._ChatRoom.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnChatRoomIdChanging(value);
+					this.SendPropertyChanging();
+					this._ChatRoomId = value;
+					this.SendPropertyChanged("ChatRoomId");
+					this.OnChatRoomIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ChatRoom_Conversation", Storage="_ChatRoom", ThisKey="ChatRoomId", OtherKey="Id", IsForeignKey=true)]
+		public ChatRoom ChatRoom
+		{
+			get
+			{
+				return this._ChatRoom.Entity;
+			}
+			set
+			{
+				ChatRoom previousValue = this._ChatRoom.Entity;
+				if (((previousValue != value) 
+							|| (this._ChatRoom.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ChatRoom.Entity = null;
+						previousValue.Conversations.Remove(this);
+					}
+					this._ChatRoom.Entity = value;
+					if ((value != null))
+					{
+						value.Conversations.Add(this);
+						this._ChatRoomId = value.Id;
+					}
+					else
+					{
+						this._ChatRoomId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("ChatRoom");
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Conversation", Storage="_User", ThisKey="ReceiverId", OtherKey="Id", IsForeignKey=true)]
 		public User User
 		{
@@ -992,6 +1300,294 @@ namespace Apbaze
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Deliverables")]
+	public partial class Deliverable : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _FilePath;
+		
+		private int _JobId;
+		
+		private int _FreelancerId;
+		
+		private int _DeliverableStatus;
+		
+		private System.DateTime _CreatedAt;
+		
+		private bool _IsDeleted;
+		
+		private EntityRef<Job> _Job;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnFilePathChanging(string value);
+    partial void OnFilePathChanged();
+    partial void OnJobIdChanging(int value);
+    partial void OnJobIdChanged();
+    partial void OnFreelancerIdChanging(int value);
+    partial void OnFreelancerIdChanged();
+    partial void OnDeliverableStatusChanging(int value);
+    partial void OnDeliverableStatusChanged();
+    partial void OnCreatedAtChanging(System.DateTime value);
+    partial void OnCreatedAtChanged();
+    partial void OnIsDeletedChanging(bool value);
+    partial void OnIsDeletedChanged();
+    #endregion
+		
+		public Deliverable()
+		{
+			this._Job = default(EntityRef<Job>);
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FilePath", DbType="NVarChar(1000) NOT NULL", CanBeNull=false)]
+		public string FilePath
+		{
+			get
+			{
+				return this._FilePath;
+			}
+			set
+			{
+				if ((this._FilePath != value))
+				{
+					this.OnFilePathChanging(value);
+					this.SendPropertyChanging();
+					this._FilePath = value;
+					this.SendPropertyChanged("FilePath");
+					this.OnFilePathChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobId", DbType="Int NOT NULL")]
+		public int JobId
+		{
+			get
+			{
+				return this._JobId;
+			}
+			set
+			{
+				if ((this._JobId != value))
+				{
+					if (this._Job.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnJobIdChanging(value);
+					this.SendPropertyChanging();
+					this._JobId = value;
+					this.SendPropertyChanged("JobId");
+					this.OnJobIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FreelancerId", DbType="Int NOT NULL")]
+		public int FreelancerId
+		{
+			get
+			{
+				return this._FreelancerId;
+			}
+			set
+			{
+				if ((this._FreelancerId != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFreelancerIdChanging(value);
+					this.SendPropertyChanging();
+					this._FreelancerId = value;
+					this.SendPropertyChanged("FreelancerId");
+					this.OnFreelancerIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeliverableStatus", DbType="Int NOT NULL")]
+		public int DeliverableStatus
+		{
+			get
+			{
+				return this._DeliverableStatus;
+			}
+			set
+			{
+				if ((this._DeliverableStatus != value))
+				{
+					this.OnDeliverableStatusChanging(value);
+					this.SendPropertyChanging();
+					this._DeliverableStatus = value;
+					this.SendPropertyChanged("DeliverableStatus");
+					this.OnDeliverableStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime NOT NULL")]
+		public System.DateTime CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDeleted", DbType="Bit NOT NULL")]
+		public bool IsDeleted
+		{
+			get
+			{
+				return this._IsDeleted;
+			}
+			set
+			{
+				if ((this._IsDeleted != value))
+				{
+					this.OnIsDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._IsDeleted = value;
+					this.SendPropertyChanged("IsDeleted");
+					this.OnIsDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Job_Deliverable", Storage="_Job", ThisKey="JobId", OtherKey="Id", IsForeignKey=true)]
+		public Job Job
+		{
+			get
+			{
+				return this._Job.Entity;
+			}
+			set
+			{
+				Job previousValue = this._Job.Entity;
+				if (((previousValue != value) 
+							|| (this._Job.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Job.Entity = null;
+						previousValue.Deliverables.Remove(this);
+					}
+					this._Job.Entity = value;
+					if ((value != null))
+					{
+						value.Deliverables.Add(this);
+						this._JobId = value.Id;
+					}
+					else
+					{
+						this._JobId = default(int);
+					}
+					this.SendPropertyChanged("Job");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Deliverable", Storage="_User", ThisKey="FreelancerId", OtherKey="Id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.Deliverables.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.Deliverables.Add(this);
+						this._FreelancerId = value.Id;
+					}
+					else
+					{
+						this._FreelancerId = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Jobs")]
 	public partial class Job : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1018,7 +1614,13 @@ namespace Apbaze
 		
 		private int _CategoryId;
 		
+		private System.Nullable<int> _ClientId;
+		
+		private System.Nullable<int> _JobStatus;
+		
 		private EntitySet<Bid> _Bids;
+		
+		private EntitySet<Deliverable> _Deliverables;
 		
 		private EntityRef<Category> _Category;
 		
@@ -1046,11 +1648,16 @@ namespace Apbaze
     partial void OnIsDeletedChanged();
     partial void OnCategoryIdChanging(int value);
     partial void OnCategoryIdChanged();
+    partial void OnClientIdChanging(System.Nullable<int> value);
+    partial void OnClientIdChanged();
+    partial void OnJobStatusChanging(System.Nullable<int> value);
+    partial void OnJobStatusChanged();
     #endregion
 		
 		public Job()
 		{
 			this._Bids = new EntitySet<Bid>(new Action<Bid>(this.attach_Bids), new Action<Bid>(this.detach_Bids));
+			this._Deliverables = new EntitySet<Deliverable>(new Action<Deliverable>(this.attach_Deliverables), new Action<Deliverable>(this.detach_Deliverables));
 			this._Category = default(EntityRef<Category>);
 			OnCreated();
 		}
@@ -1075,7 +1682,7 @@ namespace Apbaze
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(200) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
 		public string Title
 		{
 			get
@@ -1095,7 +1702,7 @@ namespace Apbaze
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(200)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(3500)")]
 		public string Description
 		{
 			get
@@ -1259,6 +1866,46 @@ namespace Apbaze
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClientId", DbType="Int")]
+		public System.Nullable<int> ClientId
+		{
+			get
+			{
+				return this._ClientId;
+			}
+			set
+			{
+				if ((this._ClientId != value))
+				{
+					this.OnClientIdChanging(value);
+					this.SendPropertyChanging();
+					this._ClientId = value;
+					this.SendPropertyChanged("ClientId");
+					this.OnClientIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobStatus", DbType="Int")]
+		public System.Nullable<int> JobStatus
+		{
+			get
+			{
+				return this._JobStatus;
+			}
+			set
+			{
+				if ((this._JobStatus != value))
+				{
+					this.OnJobStatusChanging(value);
+					this.SendPropertyChanging();
+					this._JobStatus = value;
+					this.SendPropertyChanged("JobStatus");
+					this.OnJobStatusChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Job_Bid", Storage="_Bids", ThisKey="Id", OtherKey="JobId")]
 		public EntitySet<Bid> Bids
 		{
@@ -1269,6 +1916,19 @@ namespace Apbaze
 			set
 			{
 				this._Bids.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Job_Deliverable", Storage="_Deliverables", ThisKey="Id", OtherKey="JobId")]
+		public EntitySet<Deliverable> Deliverables
+		{
+			get
+			{
+				return this._Deliverables;
+			}
+			set
+			{
+				this._Deliverables.Assign(value);
 			}
 		}
 		
@@ -1333,6 +1993,18 @@ namespace Apbaze
 		}
 		
 		private void detach_Bids(Bid entity)
+		{
+			this.SendPropertyChanging();
+			entity.Job = null;
+		}
+		
+		private void attach_Deliverables(Deliverable entity)
+		{
+			this.SendPropertyChanging();
+			entity.Job = this;
+		}
+		
+		private void detach_Deliverables(Deliverable entity)
 		{
 			this.SendPropertyChanging();
 			entity.Job = null;
@@ -1501,6 +2173,246 @@ namespace Apbaze
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Transactions")]
+	public partial class Transaction : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _Amount;
+		
+		private System.Nullable<int> _SenderId;
+		
+		private System.Nullable<int> _ReceiverId;
+		
+		private System.Nullable<System.DateTime> _CreatedAt;
+		
+		private EntityRef<User> _User;
+		
+		private EntityRef<User> _User1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnAmountChanging(int value);
+    partial void OnAmountChanged();
+    partial void OnSenderIdChanging(System.Nullable<int> value);
+    partial void OnSenderIdChanged();
+    partial void OnReceiverIdChanging(System.Nullable<int> value);
+    partial void OnReceiverIdChanged();
+    partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedAtChanged();
+    #endregion
+		
+		public Transaction()
+		{
+			this._User = default(EntityRef<User>);
+			this._User1 = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount", DbType="Int NOT NULL")]
+		public int Amount
+		{
+			get
+			{
+				return this._Amount;
+			}
+			set
+			{
+				if ((this._Amount != value))
+				{
+					this.OnAmountChanging(value);
+					this.SendPropertyChanging();
+					this._Amount = value;
+					this.SendPropertyChanged("Amount");
+					this.OnAmountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SenderId", DbType="Int")]
+		public System.Nullable<int> SenderId
+		{
+			get
+			{
+				return this._SenderId;
+			}
+			set
+			{
+				if ((this._SenderId != value))
+				{
+					if (this._User1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSenderIdChanging(value);
+					this.SendPropertyChanging();
+					this._SenderId = value;
+					this.SendPropertyChanged("SenderId");
+					this.OnSenderIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceiverId", DbType="Int")]
+		public System.Nullable<int> ReceiverId
+		{
+			get
+			{
+				return this._ReceiverId;
+			}
+			set
+			{
+				if ((this._ReceiverId != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReceiverIdChanging(value);
+					this.SendPropertyChanging();
+					this._ReceiverId = value;
+					this.SendPropertyChanged("ReceiverId");
+					this.OnReceiverIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Transaction", Storage="_User", ThisKey="ReceiverId", OtherKey="Id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.Transactions.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.Transactions.Add(this);
+						this._ReceiverId = value.Id;
+					}
+					else
+					{
+						this._ReceiverId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Transaction1", Storage="_User1", ThisKey="SenderId", OtherKey="Id", IsForeignKey=true)]
+		public User User1
+		{
+			get
+			{
+				return this._User1.Entity;
+			}
+			set
+			{
+				User previousValue = this._User1.Entity;
+				if (((previousValue != value) 
+							|| (this._User1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User1.Entity = null;
+						previousValue.Transactions1.Remove(this);
+					}
+					this._User1.Entity = value;
+					if ((value != null))
+					{
+						value.Transactions1.Add(this);
+						this._SenderId = value.Id;
+					}
+					else
+					{
+						this._SenderId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("User1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Users")]
 	public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1534,6 +2446,12 @@ namespace Apbaze
 		private EntitySet<Conversation> _Conversations;
 		
 		private EntitySet<Conversation> _Conversations1;
+		
+		private EntitySet<Deliverable> _Deliverables;
+		
+		private EntitySet<Transaction> _Transactions;
+		
+		private EntitySet<Transaction> _Transactions1;
 		
 		private EntityRef<Role> _Role;
 		
@@ -1570,6 +2488,9 @@ namespace Apbaze
 			this._Bids = new EntitySet<Bid>(new Action<Bid>(this.attach_Bids), new Action<Bid>(this.detach_Bids));
 			this._Conversations = new EntitySet<Conversation>(new Action<Conversation>(this.attach_Conversations), new Action<Conversation>(this.detach_Conversations));
 			this._Conversations1 = new EntitySet<Conversation>(new Action<Conversation>(this.attach_Conversations1), new Action<Conversation>(this.detach_Conversations1));
+			this._Deliverables = new EntitySet<Deliverable>(new Action<Deliverable>(this.attach_Deliverables), new Action<Deliverable>(this.detach_Deliverables));
+			this._Transactions = new EntitySet<Transaction>(new Action<Transaction>(this.attach_Transactions), new Action<Transaction>(this.detach_Transactions));
+			this._Transactions1 = new EntitySet<Transaction>(new Action<Transaction>(this.attach_Transactions1), new Action<Transaction>(this.detach_Transactions1));
 			this._Role = default(EntityRef<Role>);
 			OnCreated();
 		}
@@ -1837,6 +2758,45 @@ namespace Apbaze
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Deliverable", Storage="_Deliverables", ThisKey="Id", OtherKey="FreelancerId")]
+		public EntitySet<Deliverable> Deliverables
+		{
+			get
+			{
+				return this._Deliverables;
+			}
+			set
+			{
+				this._Deliverables.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Transaction", Storage="_Transactions", ThisKey="Id", OtherKey="ReceiverId")]
+		public EntitySet<Transaction> Transactions
+		{
+			get
+			{
+				return this._Transactions;
+			}
+			set
+			{
+				this._Transactions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Transaction1", Storage="_Transactions1", ThisKey="Id", OtherKey="SenderId")]
+		public EntitySet<Transaction> Transactions1
+		{
+			get
+			{
+				return this._Transactions1;
+			}
+			set
+			{
+				this._Transactions1.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Role_User", Storage="_Role", ThisKey="RoleId", OtherKey="Id", IsForeignKey=true)]
 		public Role Role
 		{
@@ -1922,6 +2882,42 @@ namespace Apbaze
 		}
 		
 		private void detach_Conversations1(Conversation entity)
+		{
+			this.SendPropertyChanging();
+			entity.User1 = null;
+		}
+		
+		private void attach_Deliverables(Deliverable entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_Deliverables(Deliverable entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+		
+		private void attach_Transactions(Transaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_Transactions(Transaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+		
+		private void attach_Transactions1(Transaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.User1 = this;
+		}
+		
+		private void detach_Transactions1(Transaction entity)
 		{
 			this.SendPropertyChanging();
 			entity.User1 = null;

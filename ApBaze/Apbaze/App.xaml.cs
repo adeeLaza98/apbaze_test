@@ -15,6 +15,5 @@ namespace Apbaze
     public partial class App : Application
     {
         
-
     }
 }

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Apbaze.StaticClasses;
 using MaterialDesignThemes.Wpf;
 
 namespace Apbaze
@@ -67,18 +68,36 @@ namespace Apbaze
         private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
             var user = _context.Users
-                .Where(u => u.Username == txtUsername.Text && u.Password == txtPassword.Password)
+                .Where(u => u.Username == txtUsername.Text)
+                .ToList()
+                .Where(u => u.Password == Utils.HashPassword(txtPassword.Password, u.CreatedAt.ToString("yyyyMMddHHmmss")))
                 .FirstOrDefault();
 
             if(user == null)
             {
-                throw new Exception("Nu exista user");
-            }
 
+                MessageBoxResult result = MessageBox.Show("Username or password incorrect!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                txtPassword.Clear();
+                txtUsername.Clear();
+                txtUsername.Focus();
+            }
             else
             {
-                Main main = new Main();
-                main.Show();
+                UserContext.LoggedInUserId = user.Id;
+                UserContext.LoggedInUsername = user.Username;
+
+
+                if (user.Role.Name == "Freelancer")
+                {
+                    Main main = new Main();
+                    main.Show();
+                }
+                else
+                {
+                    MainClient main = new MainClient();
+                    main.Show();
+                }
+                
                 this.Close();
             }
         }

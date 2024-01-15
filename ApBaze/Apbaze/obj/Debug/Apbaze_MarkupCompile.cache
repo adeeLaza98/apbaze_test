@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\__WORK\apbaze_test\apbaze_test\ApBaze\Apbaze\App.xaml
-61862991621
+13-1343078592
 2-1357984554
-121147823585
+251682004770
 19-1768435530
-CreateAccount.xaml;CreateAccountSuccess.xaml;CreateUserProfile.xaml;Main.xaml;MainWindow.xaml;Messages.xaml;
+Views\Client\ClientJob.xaml;Views\General\CreateAccount.xaml;Views\General\CreateAccountSuccess.xaml;Views\Client\CreateJob.xaml;Views\Client\DeliverableReview.xaml;Views\Freelancer\JobDetails.xaml;Views\Freelancer\Main.xaml;Views\Client\MainClient.xaml;MainWindow.xaml;Views\General\Messages.xaml;Views\Freelancer\MyJobs.xaml;Views\Freelancer\SubmitDeliverable.xaml;Views\General\Wallet.xaml;
 
 False
 

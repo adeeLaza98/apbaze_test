@@ -1,0 +1,233 @@
+﻿<Window x:Class="Apbaze.MyJobs"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:notifications="clr-namespace:Notification.Wpf.Controls;assembly=Notification.Wpf"
+        Title="Login" Height="900" Width="1200"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{x:Null}"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+
+    <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}" Margin="25" materialDesign:ShadowAssist.ShadowDepth="Depth4">
+        <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="850"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="900"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <!--#region Header-->
+
+                <!-- Set the background of the first row to grey -->
+                <Border Grid.Row="0" Grid.ColumnSpan="3" Background="#c7c3c3">
+                    <!-- Content of the first row goes here -->
+                </Border>
+
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="1" MouseDown="FindWorkRedirect">
+                        <Label Name="findWork" Margin="0 6 0 0" Foreground="Black">Find Work</Label>
+                    </Label>
+
+                    <Label Grid.Column="2" MouseDown="MyJobsRedirect">
+                        <Label Name="myJobs" Margin="0 6 0 0" FontWeight="Bold" Foreground="#14a800">My Jobs</Label>
+                    </Label>
+
+                    <Label Grid.Column="3" MouseDown="MessagesRedirect">
+                        <Label Name="messages" Margin="-10 6 0 0" Foreground="Black">Messages</Label>
+                    </Label>
+
+                </Grid>
+
+                <Label Margin="0 10 0 0" HorizontalAlignment="Right" MouseDown="Label_MouseDown" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" Content="{Binding Wallet}"></Label>
+                
+                <Label Margin="0 10 50 0" RenderTransformOrigin="17.549,0.683" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" Content="{Binding Username}"></Label>
+
+                <Label HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" Grid.Row="0" Margin="0 2 0 0" Height="40" Width="40" MouseDown="PackIcon_MouseDown">
+                    <materialDesign:PackIcon Kind="Logout" ToolTip="Logout" Foreground="Black" Margin="8 9 0 0"/>
+                </Label>
+
+                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25" RenderTransformOrigin="17.549,0.683" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="0" Margin="0 10 70 0" Grid.Column="2">
+                    <!--Margin="950,10,0,0"-->
+                    <StackPanel Margin="16 10 0 6" Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center" Text="Dark Mode"/>
+                        <ToggleButton Cursor="Hand" ToolTip="Enable Dark Mode" Margin="8 0 0 0" x:Name="themeToggle" IsChecked="{Binding IsDarkTheme}" Click="toggleTheme"/>
+                        <Button ToolTip="Having Trouble Logging In?" Content="Help Me"/>
+                        <Button x:Name="btn_exit" ToolTip="Close Application" Content="Exit Application" Click="exitApp"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+
+                <!--#endregion-->
+
+                <notifications:NotificationArea x:Name="WindowArea" Position="BottomRight"  MaxItems="3" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 0 0 100"/>
+
+                <!--#region Content-->
+
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="600"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <!--<RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="16*"/>-->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <materialDesign:PackIcon Grid.Column="1" Grid.Row="1" Kind="Magnify" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black"/>
+
+                    <TextBox Grid.Column="2" Grid.ColumnSpan="11" Grid.Row="1" Width="250" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="SearchTermTextBox" Margin="5" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Column="2" Grid.ColumnSpan="11" Grid.Row="1" IsHitTestVisible="False" Text="Search for jobs" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchTermTextBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <Label Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="5" FontWeight="Bold" FontSize="20">
+                        My jobs
+                    </Label>
+
+                    <Separator Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="11" Margin="0 -40 0 0" />
+
+                    <Label Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="11" Margin="0 -30 0 0">
+                        Review your job bids and view your proposal's status.
+                    </Label>
+
+                    <Grid Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="11" Margin="0 0 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.Resources>
+                            <!-- Define a style for the rows -->
+                            <Style TargetType="Border" x:Key="RowStyle">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Style.Triggers>
+                                    <!-- Change background on mouse over -->
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="LightGray"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Resources>
+
+                        <!-- Dynamically load rows -->
+                        <ItemsControl ItemsSource="{Binding Jobs}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Height="150" Style="{StaticResource RowStyle}" BorderBrush="Black" BorderThickness="0,0,0,1" MouseDown="Border_MouseDown" Tag="{Binding Id}">
+                                        <Grid>
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Content="{Binding PostDate}" Grid.Row="0" HorizontalAlignment="Left"/>
+
+                                            <Label Content="{Binding Title}" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" FontWeight="Bold" FontSize="16"/>
+
+                                            <!--<Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="50" Width="50" Margin="0 0 -10 0" MouseDown="PackIcon_MouseDown_1">
+                                                <materialDesign:PackIcon x:Name="Favourite" Kind="HeartOutline" Foreground="Black" Margin="10 13 0 0"/>
+                                            </Label>-->
+
+                                            <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="CheckBold" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Green" Margin="0 0 50 0" Visibility="{Binding Accepted, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                            <Label Content="Proposal status: Accepted" FontWeight="SemiBold" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 70 0" Foreground="Green" Visibility="{Binding Accepted, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                            <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="CloseBold" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Red" Margin="0 0 50 0" Visibility="{Binding Rejected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                            <Label Content="Proposal status: Rejected" FontWeight="SemiBold" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 70 0" Foreground="Red" Visibility="{Binding Rejected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                            <materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="Hourglass" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#f5be40" Margin="0 0 50 0" Visibility="{Binding InReview, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                            <Label Content="Proposal status: In review" FontWeight="SemiBold" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 70 0" Foreground="#f5be40" Visibility="{Binding InReview, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                            <materialDesign:PackIcon Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Kind="CheckBold" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Green" Margin="0 0 50 0" Visibility="{Binding DeliverableAccepted, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                            <Label Content="Deliverable status: Accepted" FontWeight="SemiBold" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 70 0" Foreground="Green" Visibility="{Binding DeliverableAccepted, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                            <materialDesign:PackIcon Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Kind="Hourglass" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#f5be40" Margin="0 0 50 0" Visibility="{Binding DeliverableInReview, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                            <Label Content="Deliverable status: In review" FontWeight="SemiBold" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 70 0" Foreground="#f5be40" Visibility="{Binding DeliverableInReview, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                            <materialDesign:PackIcon Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Kind="CloseBold" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Blue" Margin="0 0 50 0" Visibility="{Binding DeliverableNotSent, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                            <Label Content="Deliverable status: Not sent" FontWeight="SemiBold" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 70 0" Foreground="Blue" Visibility="{Binding DeliverableNotSent, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                            <materialDesign:PackIcon Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Kind="Dislike" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Red" Margin="0 0 50 0" Visibility="{Binding DeliverableRejected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                            <Label Content="Deliverable status: Rejected" FontWeight="SemiBold" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 70 0" Foreground="Red" Visibility="{Binding DeliverableRejected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+
+
+                                            <!--<materialDesign:PackIcon Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Kind="DislikeOutline" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black" Margin="0 0 50 0"/>-->
+
+                                            <Label Content="{Binding Details}" FontWeight="SemiBold" Grid.Row="2" HorizontalAlignment="Left" Margin="0 -5 0 0"/>
+
+                                            <TextBlock TextWrapping="WrapWithOverflow" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="5 10 0 0" Text="{Binding Description}">
+                                            </TextBlock>
+
+                                        </Grid>
+
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                    </Grid>
+
+                </Grid>
+
+                <!--#endregion-->
+
+            </Grid>
+        </materialDesign:DialogHost>
+    </materialDesign:Card>
+</Window>

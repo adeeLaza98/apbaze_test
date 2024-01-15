@@ -1,0 +1,230 @@
+﻿<Window x:Class="Apbaze.DeliverableReview"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:notifications="clr-namespace:Notification.Wpf.Controls;assembly=Notification.Wpf"
+        Title="Login" Height="900" Width="1200"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{x:Null}"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+
+    <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}" Margin="25" materialDesign:ShadowAssist.ShadowDepth="Depth4">
+        <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="850"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="900"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <!--#region Header-->
+
+                <!-- Set the background of the first row to grey -->
+                <Border Grid.Row="0" Grid.ColumnSpan="3" Background="#c7c3c3">
+                    <!-- Content of the first row goes here -->
+                </Border>
+
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="1" MouseDown="FindWorkRedirect">
+                        <Label Name="findWork" Margin="0 6 0 0" FontWeight="Bold" Foreground="#14a800">Find Work</Label>
+                    </Label>
+
+                    <Label Grid.Column="2" MouseDown="MyJobsRedirect">
+                        <Label Name="myJobs" Margin="0 6 0 0" Foreground="Black">My Jobs</Label>
+                    </Label>
+
+                    <Label Grid.Column="3" MouseDown="MessagesRedirect">
+                        <Label Name="messages" Margin="-10 6 0 0" Foreground="Black">Messages</Label>
+                    </Label>
+
+                </Grid>
+
+                <Label Margin="0 10 0 0" HorizontalAlignment="Right" MouseDown="Label_MouseDown" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" Content="{Binding Wallet}"></Label>
+
+                <Label Margin="0 10 50 0" RenderTransformOrigin="17.549,0.683" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" Content="{Binding Username}"></Label>
+
+                <Label HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" Grid.Row="0" Margin="0 2 0 0" Height="40" Width="40" MouseDown="PackIcon_MouseDown">
+                    <materialDesign:PackIcon Kind="Logout" ToolTip="Logout" Foreground="Black" Margin="8 9 0 0"/>
+                </Label>
+
+                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25" RenderTransformOrigin="17.549,0.683" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="0" Margin="0 10 70 0" Grid.Column="2">
+                    <!--Margin="950,10,0,0"-->
+                    <StackPanel Margin="16 10 0 6" Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center" Text="Dark Mode"/>
+                        <ToggleButton Cursor="Hand" ToolTip="Enable Dark Mode" Margin="8 0 0 0" x:Name="themeToggle" IsChecked="{Binding IsDarkTheme}" Click="toggleTheme"/>
+                        <Button ToolTip="Having Trouble Logging In?" Content="Help Me"/>
+                        <Button x:Name="btn_exit" ToolTip="Close Application" Content="Exit Application" Click="exitApp"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+
+                <!--#endregion-->
+
+                <notifications:NotificationArea x:Name="WindowArea" Position="BottomRight"  MaxItems="3" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 0 0 100"/>
+
+                <!--#region Content-->
+
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="0"/>
+                        <RowDefinition Height="600"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="36"/>
+                        <!--<RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="16*"/>-->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal" MouseLeftButtonDown="FindWorkRedirect">
+                        <materialDesign:PackIcon Kind="ArrowBack" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Black"/>
+
+                        <Label FontWeight="Bold" FontSize="20">
+                            Back
+                        </Label>
+                    </StackPanel>
+
+
+                    <Label Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="5" FontWeight="Bold" FontSize="20">
+                        Job Details
+                    </Label>
+
+                    <Separator Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="11" Margin="0 -40 0 0" />
+
+                    <materialDesign:PackIcon Grid.Column="1" Grid.Row="3" Kind="Announcement" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black"/>
+
+                    <Label Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="11" Margin="0 -30 0 0">
+                        Specialized profiles can help you better highlight your expertise when submitting proposals to jobs like these.
+                    </Label>
+
+                    <Grid Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="11" Margin="0 0 0 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Name="title" Grid.ColumnSpan="4" Content="" VerticalAlignment="Center" FontSize="27" FontWeight="DemiBold"/>
+
+                        <Separator Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Margin="0 0 0 0"  VerticalAlignment="Bottom"/>
+
+                        <TextBlock TextWrapping="WrapWithOverflow" Name="description" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" Text="" VerticalAlignment="Center"/>
+
+                        <Separator Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Margin="0 0 0 0"  VerticalAlignment="Bottom"/>
+
+                        <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Deliverable: " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" FontSize="20" />
+                        <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="FilePathTextBox" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-40 0 0 0" IsReadOnly="True" />
+
+                        <Button Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Content="Download File" Click="Download_Action" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"/>
+
+                        <!--<Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Cover Letter" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Margin="0 5 0 0"/>
+
+                        <TextBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="3" Width="600" Height="150" VerticalAlignment="Bottom" AcceptsReturn="True" TextWrapping="Wrap" HorizontalAlignment="Left" x:Name="message" Margin="0 20 0 0" Padding="10 10 10 10" Background="White"/>
+
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="2" IsHitTestVisible="False" Text="Write a message for the client ..." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=message}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>-->
+
+                    </Grid>
+
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="5" Grid.ColumnSpan="4" Name="payment" Content="" FontSize="20" HorizontalAlignment="Left" Margin="-100 0 0 0"/>
+                    <Label Grid.Row="6" Grid.ColumnSpan="4" Name="value" Content="" FontSize="20" HorizontalAlignment="Left" Margin="-100 0 0 0"/>
+                    <Label Grid.Row="7" Grid.ColumnSpan="4" Name="experience" Content="" FontSize="20" HorizontalAlignment="Left" Margin="-100 0 0 0"/>
+                    <Label Grid.Row="8" Grid.ColumnSpan="4" Name="time" Content="" FontSize="20" HorizontalAlignment="Left" Margin="-100 0 0 0"/>
+                    <Separator Grid.Row="8" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Margin="-100 0 0 0"/>
+
+                    <Button Grid.Row="10" Grid.ColumnSpan="3" Margin="-100 0 0 0" Content="Accept" Background="#14a800" Click="AcceptDeliverable"/>
+
+                    <Button Grid.Row="11" Grid.ColumnSpan="3" Margin="-100 0 0 0" Content="Reject" Background="Red" Click="RejectDeliverable"/>
+
+                </Grid>
+
+                <!--#endregion-->
+
+            </Grid>
+        </materialDesign:DialogHost>
+    </materialDesign:Card>
+</Window>

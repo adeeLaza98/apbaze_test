@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AppBaze" Class="AppBazeDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=AppBaze;Integrated Security=True" SettingsObjectName="Apbaze.Properties.Settings" SettingsPropertyName="AppBazeConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\sqlexpress;Initial Catalog=AppBaze;Integrated Security=True;Trust Server Certificate=True;Context Connection=False" SettingsObjectName="Apbaze.Properties.Settings" SettingsPropertyName="AppBazeConnectionString3" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Bids" Member="Bids">
     <Type Name="Bid">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -9,17 +9,9 @@
       <Column Name="FreelancerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(3000) NOT NULL" CanBeNull="false" />
       <Association Name="Job_Bid" Member="Job" ThisKey="JobId" OtherKey="Id" Type="Job" IsForeignKey="true" />
       <Association Name="User_Bid" Member="User" ThisKey="FreelancerId" OtherKey="Id" Type="User" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Categories" Member="Categories">
-    <Type Name="Category">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Title" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="Category_Job" Member="Jobs" ThisKey="Id" OtherKey="CategoryId" Type="Job" />
     </Type>
   </Table>
   <Table Name="dbo.UsersJobs" Member="UsersJobs">
@@ -34,6 +26,25 @@
       <Association Name="User_UsersJob" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Categories" Member="Categories">
+    <Type Name="Category">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Category_Job" Member="Jobs" ThisKey="Id" OtherKey="CategoryId" Type="Job" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChatRooms" Member="ChatRooms">
+    <Type Name="ChatRoom">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FreelancerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ChatRoom_Conversation" Member="Conversations" ThisKey="Id" OtherKey="ChatRoomId" Type="Conversation" />
+    </Type>
+  </Table>
   <Table Name="dbo.Conversations" Member="Conversations">
     <Type Name="Conversation">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -43,15 +54,30 @@
       <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="SenderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ReceiverId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChatRoomId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ChatRoom_Conversation" Member="ChatRoom" ThisKey="ChatRoomId" OtherKey="Id" Type="ChatRoom" IsForeignKey="true" />
       <Association Name="User_Conversation" Member="User" ThisKey="ReceiverId" OtherKey="Id" Type="User" IsForeignKey="true" />
       <Association Name="User_Conversation1" Member="User1" ThisKey="SenderId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Deliverables" Member="Deliverables">
+    <Type Name="Deliverable">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FilePath" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="JobId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FreelancerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DeliverableStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Job_Deliverable" Member="Job" ThisKey="JobId" OtherKey="Id" Type="Job" IsForeignKey="true" />
+      <Association Name="User_Deliverable" Member="User" ThisKey="FreelancerId" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Jobs" Member="Jobs">
     <Type Name="Job">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Title" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(3500)" CanBeNull="true" />
       <Column Name="ExperienceLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="IsPaymentHourly" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
@@ -59,8 +85,11 @@
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="CategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="JobStatus" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Job_Bid" Member="Bids" ThisKey="Id" OtherKey="JobId" Type="Bid" />
       <Association Name="Job_UsersJob" Member="UsersJobs" ThisKey="Id" OtherKey="JobId" Type="UsersJob" />
+      <Association Name="Job_Deliverable" Member="Deliverables" ThisKey="Id" OtherKey="JobId" Type="Deliverable" />
       <Association Name="Category_Job" Member="Category" ThisKey="CategoryId" OtherKey="Id" Type="Category" IsForeignKey="true" />
     </Type>
   </Table>
@@ -71,6 +100,17 @@
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="Role_User" Member="Users" ThisKey="Id" OtherKey="RoleId" Type="User" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Transactions" Member="Transactions">
+    <Type Name="Transaction">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SenderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReceiverId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="User_Transaction" Member="User" ThisKey="ReceiverId" OtherKey="Id" Type="User" IsForeignKey="true" />
+      <Association Name="User_Transaction1" Member="User1" ThisKey="SenderId" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Users" Member="Users">
@@ -90,6 +130,9 @@
       <Association Name="User_UsersJob" Member="UsersJobs" ThisKey="Id" OtherKey="UserId" Type="UsersJob" />
       <Association Name="User_Conversation" Member="Conversations" ThisKey="Id" OtherKey="ReceiverId" Type="Conversation" />
       <Association Name="User_Conversation1" Member="Conversations1" ThisKey="Id" OtherKey="SenderId" Type="Conversation" />
+      <Association Name="User_Deliverable" Member="Deliverables" ThisKey="Id" OtherKey="FreelancerId" Type="Deliverable" />
+      <Association Name="User_Transaction" Member="Transactions" ThisKey="Id" OtherKey="ReceiverId" Type="Transaction" />
+      <Association Name="User_Transaction1" Member="Transactions1" ThisKey="Id" OtherKey="SenderId" Type="Transaction" />
       <Association Name="Role_User" Member="Role" ThisKey="RoleId" OtherKey="Id" Type="Role" IsForeignKey="true" />
     </Type>
   </Table>
